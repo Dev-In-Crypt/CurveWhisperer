@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { injected } from 'wagmi/connectors';
 
@@ -11,10 +12,13 @@ export function Header() {
   return (
     <header className="border-b border-card-border/50 px-6 py-3 flex items-center justify-between relative z-10 backdrop-blur-md bg-background/60">
       <div className="flex items-center gap-3">
-        <h1 className="text-xl font-bold tracking-tight glitch cursor-default">
-          <span className="text-accent-cyan neon-text-subtle">Curve</span>
-          <span className="text-accent-magenta neon-text-subtle">Whisperer</span>
-        </h1>
+        <Link href="/">
+          <h1 className="text-xl font-bold tracking-tight glitch cursor-pointer hover:opacity-80 transition-opacity">
+            <span className="text-accent-cyan neon-text-subtle">Curve</span>
+            {' '}
+            <span className="text-accent-magenta neon-text-subtle">Whisperer</span>
+          </h1>
+        </Link>
         <div className="hidden sm:flex items-center gap-1.5 text-xs text-muted border-l border-card-border pl-3">
           <span className="font-mono uppercase tracking-widest">Four.Meme AI</span>
         </div>
