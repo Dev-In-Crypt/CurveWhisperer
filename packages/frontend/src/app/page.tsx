@@ -7,10 +7,10 @@ import { LiveFeed } from '../components/LiveFeed';
 import { fetchStats, StatsData } from '../lib/api';
 
 const SORT_OPTIONS = [
-  { value: 'score', label: 'Score ↓' },
-  { value: 'fill', label: 'Fill % ↓' },
-  { value: 'velocity', label: 'Velocity ↓' },
-  { value: 'newest', label: 'Newest' },
+  { value: 'score', label: 'SCORE ↓' },
+  { value: 'fill', label: 'FILL% ↓' },
+  { value: 'velocity', label: 'VELOCITY ↓' },
+  { value: 'newest', label: 'NEWEST' },
 ];
 
 export default function Dashboard() {
@@ -34,17 +34,34 @@ export default function Dashboard() {
     : curves;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6">
+    <div className="max-w-7xl mx-auto px-4 py-6 relative z-10">
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <StatCard label="Active Curves" value={stats?.activeCurves ?? '—'} />
-        <StatCard label="Graduations Today" value={stats?.graduationsToday ?? '—'} />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 stagger">
+        <StatCard
+          label="Active Curves"
+          value={stats?.activeCurves ?? '—'}
+          icon="◈"
+          accent="text-accent-cyan"
+        />
+        <StatCard
+          label="Graduations Today"
+          value={stats?.graduationsToday ?? '—'}
+          icon="◆"
+          accent="text-accent-green"
+        />
         <StatCard
           label="Top Score"
-          value={stats?.topScore ? `${stats.topScore.score}/100` : '—'}
+          value={stats?.topScore ? `${stats.topScore.score}` : '—'}
           sub={stats?.topScore?.name}
+          icon="◉"
+          accent="text-accent-magenta"
         />
-        <StatCard label="Connection" value={connected ? 'Live' : 'Offline'} color={connected ? 'text-accent-green' : 'text-accent-red'} />
+        <StatCard
+          label="Network"
+          value={connected ? 'ONLINE' : 'OFFLINE'}
+          icon="◎"
+          accent={connected ? 'text-accent-green' : 'text-accent-red'}
+        />
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6">
@@ -52,15 +69,18 @@ export default function Dashboard() {
         <div className="flex-1 min-w-0">
           {/* Filters */}
           <div className="flex flex-col sm:flex-row gap-3 mb-4">
-            <input
-              type="text"
-              placeholder="Search by name, symbol, or address..."
-              className="flex-1 bg-card border border-card-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-accent-blue"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-            />
+            <div className="flex-1 relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-accent-cyan/40 font-mono text-sm">{'>'}</span>
+              <input
+                type="text"
+                placeholder="search token, symbol, or 0x..."
+                className="w-full glow-card rounded-lg pl-7 pr-3 py-2 text-sm font-mono focus:outline-none focus:border-accent-cyan/50 placeholder:text-muted/50"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+              />
+            </div>
             <select
-              className="bg-card border border-card-border rounded-lg px-3 py-2 text-sm focus:outline-none"
+              className="glow-card rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:border-accent-cyan/50 appearance-none cursor-pointer text-accent-cyan"
               value={sortBy}
               onChange={e => setSortBy(e.target.value)}
             >
@@ -74,15 +94,19 @@ export default function Dashboard() {
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="bg-card border border-card-border rounded-xl p-4 animate-pulse h-40" />
+                <div key={i} className="glow-card rounded-xl p-4 animate-pulse h-40 border-pulse" />
               ))}
             </div>
           ) : filtered.length === 0 ? (
-            <div className="text-center py-12 text-muted">
-              {search ? 'No curves match your search.' : 'No active bonding curves detected.'}
+            <div className="text-center py-16 font-mono">
+              <div className="text-4xl text-accent-cyan/20 mb-4">⟨ ⟩</div>
+              <p className="text-muted">
+                {search ? 'No curves match query.' : 'No active bonding curves detected.'}
+              </p>
+              <p className="text-accent-cyan/30 text-xs mt-2">Monitoring Four.Meme in real-time...</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 stagger">
               {filtered.map(curve => (
                 <CurveCard key={curve.address} curve={curve} />
               ))}
@@ -92,7 +116,10 @@ export default function Dashboard() {
 
         {/* Live feed sidebar */}
         <div className="lg:w-80 shrink-0">
-          <h2 className="text-sm font-semibold mb-3 text-muted uppercase tracking-wider">Live Feed</h2>
+          <h2 className="text-xs font-mono mb-3 text-accent-purple/70 uppercase tracking-[0.2em] flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-magenta animate-pulse shadow-[0_0_6px_rgba(255,0,204,0.5)]" />
+            Live Signal Feed
+          </h2>
           <LiveFeed />
         </div>
       </div>
@@ -100,17 +127,21 @@ export default function Dashboard() {
   );
 }
 
-function StatCard({ label, value, sub, color }: {
+function StatCard({ label, value, sub, icon, accent }: {
   label: string;
   value: string | number;
   sub?: string;
-  color?: string;
+  icon: string;
+  accent: string;
 }) {
   return (
-    <div className="bg-card border border-card-border rounded-xl px-4 py-3">
-      <p className="text-xs text-muted mb-1">{label}</p>
-      <p className={`text-xl font-bold ${color || ''}`}>{value}</p>
-      {sub && <p className="text-xs text-muted truncate">{sub}</p>}
+    <div className="glow-card rounded-xl px-4 py-3 border-pulse">
+      <div className="flex items-center justify-between mb-1">
+        <p className="text-xs text-muted font-mono uppercase tracking-wider">{label}</p>
+        <span className={`${accent} opacity-40`}>{icon}</span>
+      </div>
+      <p className={`text-2xl font-bold font-mono ${accent} neon-text-subtle`}>{value}</p>
+      {sub && <p className="text-xs text-muted truncate font-mono mt-0.5">{sub}</p>}
     </div>
   );
 }

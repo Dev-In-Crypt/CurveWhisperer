@@ -39,33 +39,38 @@ export function LiveFeed() {
 
   if (feed.length === 0) {
     return (
-      <div className="text-sm text-muted text-center py-8">
-        Waiting for live events...
+      <div className="text-sm text-muted text-center py-8 font-mono">
+        <div className="text-accent-cyan/30 text-2xl mb-2">⟨⟩</div>
+        Awaiting signals...
       </div>
     );
   }
 
   return (
-    <div className="space-y-2 max-h-96 overflow-y-auto">
+    <div className="space-y-2 max-h-96 overflow-y-auto stagger">
       {feed.map((item) => {
         const isGrad = 'timeToGraduate' in item;
         return (
           <div
             key={item.id}
-            className="bg-card border border-card-border rounded-lg px-3 py-2 text-sm"
+            className={`glow-card rounded-lg px-3 py-2 text-sm ${isGrad ? 'border-accent-green/20' : 'border-accent-red/20'}`}
           >
             <div className="flex items-center gap-2">
-              <span>{isGrad ? '🎓' : '🐋'}</span>
-              <span className="font-medium truncate">
+              <span className={`text-lg ${isGrad ? 'neon-text-subtle text-accent-green' : ''}`}>
+                {isGrad ? '🎓' : '🐋'}
+              </span>
+              <span className="font-mono font-medium truncate text-foreground">
                 {item.tokenName || item.name || item.tokenAddress?.slice(0, 10)}
               </span>
-              <span className="text-xs text-muted ml-auto">{relativeTime(item.timestamp)}</span>
+              <span className="text-xs text-muted font-mono ml-auto">{relativeTime(item.timestamp)}</span>
             </div>
             {item.details && (
-              <p className="text-xs text-muted mt-1 truncate">{item.details}</p>
+              <p className="text-xs text-muted mt-1 truncate font-mono">{item.details}</p>
             )}
             {item.timeToGraduate && (
-              <p className="text-xs text-accent-green mt-1">Graduated in {item.timeToGraduate}</p>
+              <p className="text-xs text-accent-green mt-1 font-mono neon-text-subtle">
+                Graduated in {item.timeToGraduate}
+              </p>
             )}
           </div>
         );

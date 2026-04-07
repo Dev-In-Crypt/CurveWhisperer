@@ -2,7 +2,7 @@
 
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
-const COLORS = ['#3b82f6', '#22c55e', '#eab308', '#ef4444', '#a855f7', '#6b7280'];
+const COLORS = ['#00ccff', '#ff00cc', '#8844ff', '#00ff88', '#ffdd00', '#1a1a3e'];
 
 interface Holder {
   address: string;
@@ -30,23 +30,37 @@ export function HolderPie({ holders, hhi }: { holders: Holder[]; hhi: number }) 
             cx="50%"
             cy="50%"
             outerRadius={80}
+            innerRadius={40}
             dataKey="value"
-            label={({ name, value }) => `${value}%`}
+            label={({ value }) => `${value}%`}
             labelLine={false}
+            strokeWidth={0}
           >
             {data.map((_, i) => (
-              <Cell key={i} fill={COLORS[i % COLORS.length]} />
+              <Cell
+                key={i}
+                fill={COLORS[i % COLORS.length]}
+                style={{ filter: `drop-shadow(0 0 4px ${COLORS[i % COLORS.length]}40)` }}
+              />
             ))}
           </Pie>
           <Tooltip
-            contentStyle={{ background: '#18181b', border: '1px solid #27272a', borderRadius: 8 }}
+            contentStyle={{
+              background: 'rgba(10, 10, 24, 0.95)',
+              border: '1px solid rgba(0, 204, 255, 0.3)',
+              borderRadius: 8,
+              fontFamily: 'monospace',
+              fontSize: 12,
+            }}
           />
           <Legend
-            wrapperStyle={{ fontSize: 11, color: '#a1a1aa' }}
+            wrapperStyle={{ fontSize: 10, color: '#6a6a9a', fontFamily: 'monospace' }}
           />
         </PieChart>
       </ResponsiveContainer>
-      <p className="text-center text-xs text-muted mt-1">HHI: {hhi}</p>
+      <p className="text-center text-xs text-muted font-mono mt-1">
+        HHI: <span className={hhi >= 2500 ? 'text-accent-red' : 'text-accent-yellow'}>{hhi}</span>
+      </p>
     </div>
   );
 }

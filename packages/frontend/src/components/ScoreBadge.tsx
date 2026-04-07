@@ -6,23 +6,25 @@ interface ScoreBadgeProps {
 }
 
 export function ScoreBadge({ score, size = 'md' }: ScoreBadgeProps) {
-  const color = score >= 70
-    ? 'border-accent-green text-accent-green'
+  const glowClass = score >= 70
+    ? 'border-accent-green text-accent-green glow-green'
     : score >= 40
-      ? 'border-accent-yellow text-accent-yellow'
-      : 'border-accent-red text-accent-red';
+      ? 'border-accent-yellow text-accent-yellow glow-yellow'
+      : 'border-accent-red text-accent-red glow-red';
 
   const sizeClasses = {
-    sm: 'w-10 h-10 text-sm',
-    md: 'w-14 h-14 text-lg',
-    lg: 'w-20 h-20 text-2xl',
+    sm: 'w-11 h-11 text-sm',
+    md: 'w-16 h-16 text-xl',
+    lg: 'w-22 h-22 text-3xl',
   };
 
   return (
-    <div
-      className={`${sizeClasses[size]} ${color} border-2 rounded-full flex items-center justify-center font-bold transition-all duration-300`}
-    >
-      {score}
+    <div className="relative">
+      <div
+        className={`${sizeClasses[size]} ${glowClass} border-2 rounded-full flex items-center justify-center font-bold font-mono transition-all duration-500 pulse-ring`}
+      >
+        {score}
+      </div>
     </div>
   );
 }
