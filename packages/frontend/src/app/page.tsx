@@ -110,7 +110,7 @@ export default function Dashboard() {
         {/* Live feed sidebar */}
         <div className="lg:w-72 shrink-0">
           <h2 className="text-xs font-mono mb-3 text-accent-purple/70 uppercase tracking-[0.2em] flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent-magenta animate-pulse shadow-[0_0_6px_rgba(255,0,204,0.5)]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-magenta animate-pulse shadow-[0_0_6px_rgba(167,139,250,0.4)]" />
             Live Signal Feed
           </h2>
           <LiveFeed />

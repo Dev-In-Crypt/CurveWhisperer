@@ -43,7 +43,7 @@ export function Header() {
           </button>
         )}
         <div className="flex items-center gap-1.5 text-xs font-mono">
-          <div className="w-1.5 h-1.5 rounded-full bg-accent-green animate-pulse shadow-[0_0_6px_rgba(0,255,136,0.6)]" />
+          <div className="w-1.5 h-1.5 rounded-full bg-accent-green animate-pulse shadow-[0_0_6px_rgba(52,211,153,0.4)]" />
           <span className="text-accent-green/70 uppercase tracking-widest">Live</span>
         </div>
       </div>

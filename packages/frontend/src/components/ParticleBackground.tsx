@@ -23,8 +23,8 @@ export function ParticleBackground() {
 
     let animId: number;
     let particles: Particle[] = [];
-    const PARTICLE_COUNT = 60;
-    const CONNECTION_DIST = 150;
+    const PARTICLE_COUNT = 45;
+    const CONNECTION_DIST = 130;
 
     function resize() {
       canvas!.width = window.innerWidth;
@@ -38,11 +38,11 @@ export function ParticleBackground() {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.5 + 0.1,
-        hue: Math.random() > 0.5 ? 180 : 270, // cyan or purple
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 1.5 + 0.5,
+        opacity: Math.random() * 0.35 + 0.05,
+        hue: Math.random() > 0.5 ? 168 : 262, // teal or violet
       });
     }
 
@@ -57,7 +57,7 @@ export function ParticleBackground() {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < CONNECTION_DIST) {
             const alpha = (1 - dist / CONNECTION_DIST) * 0.15;
-            ctx!.strokeStyle = `hsla(${particles[i].hue}, 100%, 60%, ${alpha})`;
+            ctx!.strokeStyle = `hsla(${particles[i].hue}, 60%, 50%, ${alpha})`;
             ctx!.lineWidth = 0.5;
             ctx!.beginPath();
             ctx!.moveTo(particles[i].x, particles[i].y);
@@ -80,13 +80,13 @@ export function ParticleBackground() {
 
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx!.fillStyle = `hsla(${p.hue}, 100%, 70%, ${p.opacity})`;
+        ctx!.fillStyle = `hsla(${p.hue}, 50%, 60%, ${p.opacity})`;
         ctx!.fill();
 
-        // Glow
+        // Soft glow
         ctx!.beginPath();
-        ctx!.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
-        ctx!.fillStyle = `hsla(${p.hue}, 100%, 60%, ${p.opacity * 0.1})`;
+        ctx!.arc(p.x, p.y, p.size * 2.5, 0, Math.PI * 2);
+        ctx!.fillStyle = `hsla(${p.hue}, 50%, 50%, ${p.opacity * 0.06})`;
         ctx!.fill();
       }
 
@@ -105,7 +105,7 @@ export function ParticleBackground() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: 0.4 }}
     />
   );
 }

@@ -2,7 +2,7 @@
 
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
-const COLORS = ['#00ccff', '#ff00cc', '#8844ff', '#00ff88', '#ffdd00', '#1a1a3e'];
+const COLORS = ['#2dd4bf', '#a78bfa', '#34d399', '#fb7185', '#fbbf24', '#2d2250'];
 
 interface Holder {
   address: string;
@@ -46,15 +46,15 @@ export function HolderPie({ holders, hhi }: { holders: Holder[]; hhi: number }) 
           </Pie>
           <Tooltip
             contentStyle={{
-              background: 'rgba(10, 10, 24, 0.95)',
-              border: '1px solid rgba(0, 204, 255, 0.3)',
+              background: 'rgba(15, 11, 30, 0.95)',
+              border: '1px solid rgba(45, 212, 191, 0.2)',
               borderRadius: 8,
               fontFamily: 'monospace',
               fontSize: 12,
             }}
           />
           <Legend
-            wrapperStyle={{ fontSize: 10, color: '#6a6a9a', fontFamily: 'monospace' }}
+            wrapperStyle={{ fontSize: 10, color: '#8b83a8', fontFamily: 'monospace' }}
           />
         </PieChart>
       </ResponsiveContainer>

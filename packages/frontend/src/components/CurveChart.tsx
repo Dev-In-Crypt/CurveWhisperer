@@ -13,47 +13,47 @@ export function CurveChart({ data }: { data: DataPoint[] }) {
       <AreaChart data={data}>
         <defs>
           <linearGradient id="fillGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#00ccff" stopOpacity={0.3} />
-            <stop offset="50%" stopColor="#8844ff" stopOpacity={0.1} />
-            <stop offset="95%" stopColor="#8844ff" stopOpacity={0} />
+            <stop offset="5%" stopColor="#2dd4bf" stopOpacity={0.25} />
+            <stop offset="50%" stopColor="#a78bfa" stopOpacity={0.08} />
+            <stop offset="95%" stopColor="#a78bfa" stopOpacity={0} />
           </linearGradient>
         </defs>
         <XAxis
           dataKey="time"
-          tick={{ fill: '#6a6a9a', fontSize: 11, fontFamily: 'monospace' }}
-          axisLine={{ stroke: '#1a1a3e' }}
+          tick={{ fill: '#8b83a8', fontSize: 11, fontFamily: 'monospace' }}
+          axisLine={{ stroke: '#2d2250' }}
           tickLine={false}
         />
         <YAxis
           domain={[0, 100]}
-          tick={{ fill: '#6a6a9a', fontSize: 11, fontFamily: 'monospace' }}
-          axisLine={{ stroke: '#1a1a3e' }}
+          tick={{ fill: '#8b83a8', fontSize: 11, fontFamily: 'monospace' }}
+          axisLine={{ stroke: '#2d2250' }}
           tickLine={false}
           tickFormatter={(v: number) => `${v}%`}
         />
         <Tooltip
           contentStyle={{
-            background: 'rgba(10, 10, 24, 0.95)',
-            border: '1px solid rgba(0, 204, 255, 0.3)',
+            background: 'rgba(15, 11, 30, 0.95)',
+            border: '1px solid rgba(45, 212, 191, 0.2)',
             borderRadius: 8,
             fontFamily: 'monospace',
-            boxShadow: '0 0 15px rgba(0, 204, 255, 0.1)',
+            boxShadow: '0 0 15px rgba(45, 212, 191, 0.08)',
           }}
-          labelStyle={{ color: '#6a6a9a' }}
+          labelStyle={{ color: '#8b83a8' }}
         />
         <ReferenceLine
           y={100}
-          stroke="#00ff88"
+          stroke="#34d399"
           strokeDasharray="4 4"
-          label={{ value: 'GRADUATION', fill: '#00ff88', fontSize: 10, fontFamily: 'monospace' }}
+          label={{ value: 'GRADUATION', fill: '#34d399', fontSize: 10, fontFamily: 'monospace' }}
         />
         <Area
           type="monotone"
           dataKey="fill"
-          stroke="#00ccff"
+          stroke="#2dd4bf"
           fill="url(#fillGrad)"
           strokeWidth={2}
-          style={{ filter: 'drop-shadow(0 0 4px rgba(0, 204, 255, 0.4))' }}
+          style={{ filter: 'drop-shadow(0 0 4px rgba(45, 212, 191, 0.3))' }}
         />
       </AreaChart>
     </ResponsiveContainer>
