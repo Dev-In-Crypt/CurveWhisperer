@@ -8,6 +8,7 @@ import { BSC_EXPLORER } from '../../../lib/constants';
 import { ScoreBadge } from '../../../components/ScoreBadge';
 import { CurveChart } from '../../../components/CurveChart';
 import { HolderPie } from '../../../components/HolderPie';
+import { WalletHoldings } from '../../../components/WalletHoldings';
 
 export default function TokenDetailPage() {
   const params = useParams();
@@ -120,6 +121,9 @@ export default function TokenDetailPage() {
           </div>
         </div>
       )}
+
+      {/* Wallet holdings */}
+      <WalletHoldings tokenAddress={address} />
 
       {/* Stats row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
