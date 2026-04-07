@@ -10,7 +10,21 @@ import { config } from '../config.js';
 export function createApp(curveStore: CurveStore, alertStore: AlertStore): express.Application {
   const app = express();
 
-  app.use(cors({ origin: config.server.corsOrigin }));
+  app.use(cors({
+    origin: (origin, callback) => {
+      // Allow configured origin, localhost, and Railway domains
+      if (
+        !origin ||
+        origin === config.server.corsOrigin ||
+        origin.endsWith('.up.railway.app') ||
+        origin.startsWith('http://localhost')
+      ) {
+        callback(null, true);
+      } else {
+        callback(null, false);
+      }
+    },
+  }));
   app.use(express.json());
 
   app.use('/api/curves', createCurvesRouter(curveStore, alertStore));

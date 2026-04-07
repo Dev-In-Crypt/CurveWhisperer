@@ -37,7 +37,7 @@ export const config = {
   },
   server: {
     port: parseInt(optional('PORT', '3000'), 10),
-    corsOrigin: optional('CORS_ORIGIN', 'http://localhost:3001'),
+    corsOrigin: optional('CORS_ORIGIN', 'http://localhost:3001').replace(/\/+$/, ''),
   },
   // Constants
   fourMeme: {
