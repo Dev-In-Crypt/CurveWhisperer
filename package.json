@@ -1,0 +1,19 @@
+{
+  "name": "curvewhisperer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI-powered graduation advisor for Four.Meme bonding curves on BNB Chain",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0"
+  }
+}

@@ -1,0 +1,44 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+
+# Foundry
+packages/contracts/out/
+packages/contracts/cache/
+packages/contracts/broadcast/
+
+# Next.js
+packages/frontend/.next/
+packages/frontend/out/
+
+# Turbo
+.turbo/
+
+# Logs
+*.log
+pino-*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data
+packages/backend/data/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Spec docs with credentials
+CurveWhisperer_Reference_Pack.md
+CurveWhisperer_Implementation_Plan.md
+
+# Package lock (sub-packages)
+packages/*/package-lock.json
+
+# Next.js generated
+packages/frontend/AGENTS.md
+packages/frontend/CLAUDE.md
