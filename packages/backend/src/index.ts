@@ -14,8 +14,11 @@ import { ScoreCache } from './analyzer/cache.js';
 import { OnchainPublisher } from './publisher/onchain.js';
 import { WSPublisher } from './publisher/websocket.js';
 import { createApp } from './api/router.js';
+import { seedMockData, startMockUpdates } from './collector/mock-data.js';
 
 const log = createChildLogger('main');
+
+const DEMO_MODE = process.env.DEMO_MODE === 'true' || process.env.DEMO_MODE === '1';
 
 // --- State ---
 export const curveStore = new CurveStore();
@@ -99,12 +102,18 @@ export { whaleDetector, graduationWatcher, scoreCache };
 
 // --- Start ---
 server.listen(config.server.port, () => {
-  log.info({ port: config.server.port }, 'CurveWhisperer backend running');
+  log.info({ port: config.server.port, demoMode: DEMO_MODE }, 'CurveWhisperer backend running');
 
-  bondingMonitor.start();
-  graduationWatcher.start();
+  if (DEMO_MODE) {
+    log.info('DEMO MODE: seeding mock data and simulating live trades');
+    seedMockData(curveStore, alertStore);
+    startMockUpdates(curveStore, alertStore);
+  } else {
+    bondingMonitor.start();
+    graduationWatcher.start();
+  }
+
   scoreOrchestrator.startPeriodicScoring();
-
   log.info('All services started');
 });
 

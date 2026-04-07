@@ -39,19 +39,19 @@ export default function Dashboard() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 stagger">
         <StatCard
           label="Active Curves"
-          value={stats?.activeCurves ?? '—'}
+          value={stats ? stats.activeCurves : '...'}
           icon="◈"
           accent="text-accent-cyan"
         />
         <StatCard
           label="Graduations Today"
-          value={stats?.graduationsToday ?? '—'}
+          value={stats ? stats.graduationsToday : '...'}
           icon="◆"
           accent="text-accent-green"
         />
         <StatCard
           label="Top Score"
-          value={stats?.topScore ? `${stats.topScore.score}` : '—'}
+          value={stats?.topScore ? `${stats.topScore.score}/100` : '—'}
           sub={stats?.topScore?.name}
           icon="◉"
           accent="text-accent-magenta"

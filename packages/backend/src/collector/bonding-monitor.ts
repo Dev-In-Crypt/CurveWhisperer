@@ -8,6 +8,25 @@ import { createChildLogger } from '../utils/logger.js';
 
 const log = createChildLogger('bonding-monitor');
 
+const BONDING_PROGRESS_QUERY = `
+query BondingCurveProgress($token: String!) {
+  EVM(dataset: combined, network: bsc) {
+    BalanceUpdates(
+      where: {
+        BalanceUpdate: {
+          Address: { is: "0x5c952063c7fc8610FFDB798152D69F0B9550762b" }
+        }
+        Currency: { SmartContract: { is: $token } }
+      }
+      orderBy: { descendingByField: "balance" }
+    ) {
+      Currency { Name Symbol SmartContract }
+      balance: sum(of: BalanceUpdate_Amount)
+    }
+  }
+}
+`;
+
 const NEW_TOKENS_SUB = `
 subscription {
   EVM(network: bsc) {
