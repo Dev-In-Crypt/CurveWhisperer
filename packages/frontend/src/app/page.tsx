@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useCurves } from '../hooks/useCurves';
 import { CurveCard } from '../components/CurveCard';
-import { LiveFeed } from '../components/LiveFeed';
-import { fetchStats, StatsData } from '../lib/api';
+import { fetchStats, fetchAlerts, StatsData, AlertData } from '../lib/api';
 
 const SORT_OPTIONS = [
   { value: 'score', label: 'SCORE ↓' },
@@ -17,11 +16,16 @@ export default function Dashboard() {
   const [sortBy, setSortBy] = useState('score');
   const [search, setSearch] = useState('');
   const [stats, setStats] = useState<StatsData | null>(null);
+  const [alerts, setAlerts] = useState<AlertData[]>([]);
   const { curves, loading } = useCurves(sortBy);
 
   useEffect(() => {
     fetchStats().then(setStats);
-    const interval = setInterval(() => fetchStats().then(setStats), 30000);
+    fetchAlerts({ limit: 20 }).then(d => d && setAlerts(d.alerts));
+    const interval = setInterval(() => {
+      fetchStats().then(setStats);
+      fetchAlerts({ limit: 20 }).then(d => d && setAlerts(d.alerts));
+    }, 15000);
     return () => clearInterval(interval);
   }, []);
 
@@ -81,41 +85,62 @@ export default function Dashboard() {
         </select>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Main content */}
-        <div className="flex-1 min-w-0">
-          {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="glow-card rounded-xl p-4 animate-pulse h-40 border-pulse" />
-              ))}
-            </div>
-          ) : filtered.length === 0 ? (
-            <div className="text-center py-16 font-mono">
-              <div className="text-4xl text-accent-cyan/20 mb-4">⟨ ⟩</div>
-              <p className="text-muted">
-                {search ? 'No curves match query.' : 'No active bonding curves detected.'}
-              </p>
-              <p className="text-accent-cyan/30 text-xs mt-2">Monitoring Four.Meme in real-time...</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 stagger">
-              {filtered.map(curve => (
-                <CurveCard key={curve.address} curve={curve} />
-              ))}
-            </div>
-          )}
+      {/* Curve grid */}
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="glow-card rounded-xl p-4 animate-pulse h-40 border-pulse" />
+          ))}
         </div>
+      ) : filtered.length === 0 ? (
+        <div className="text-center py-16 font-mono">
+          <div className="text-4xl text-accent-cyan/20 mb-4">⟨ ⟩</div>
+          <p className="text-muted">
+            {search ? 'No curves match query.' : 'No active bonding curves detected.'}
+          </p>
+          <p className="text-accent-cyan/30 text-xs mt-2">Monitoring Four.Meme in real-time...</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 stagger">
+          {filtered.map(curve => (
+            <CurveCard key={curve.address} curve={curve} />
+          ))}
+        </div>
+      )}
 
-        {/* Live feed sidebar */}
-        <div className="lg:w-72 shrink-0">
-          <h2 className="text-xs font-mono mb-3 text-accent-purple/70 uppercase tracking-[0.2em] flex items-center gap-2">
+      {/* Recent alerts */}
+      {alerts.length > 0 && (
+        <div className="mt-8">
+          <h2 className="text-xs font-mono mb-4 text-accent-purple/70 uppercase tracking-[0.2em] flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-accent-magenta animate-pulse shadow-[0_0_6px_rgba(167,139,250,0.4)]" />
-            Live Signal Feed
+            Recent Alerts
           </h2>
-          <LiveFeed />
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 stagger">
+            {alerts.slice(0, 6).map(alert => (
+              <div key={alert.id} className="glow-card rounded-lg px-4 py-3 text-sm">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-base">{'alertType' in alert ? '🐋' : '🎓'}</span>
+                  <span className="font-mono font-medium truncate">
+                    {alert.tokenName || alert.name || alert.tokenAddress?.slice(0, 12)}
+                  </span>
+                  {alert.severity && (
+                    <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ml-auto ${
+                      alert.severity === 'high' ? 'bg-accent-red/10 text-accent-red' :
+                      alert.severity === 'medium' ? 'bg-accent-yellow/10 text-accent-yellow' :
+                      'bg-muted/10 text-muted'
+                    }`}>
+                      {alert.severity}
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-muted font-mono truncate">
+                  {alert.details || (alert.timeToGraduate ? `Graduated in ${alert.timeToGraduate}` : '')}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
