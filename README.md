@@ -23,6 +23,16 @@ Real-time AI advisor that analyzes Four.Meme bonding curves, predicts graduation
 | Telegram Bot | [@CurveWhisperer_bot](https://t.me/CurveWhisperer_bot) |
 | Oracle Contract | [0x02d42A47...ed825aB8](https://testnet.bscscan.com/address/0x02d42A47cD33F3FEEfC7Cf31b8E29657ed825aB8) (BSC Testnet) |
 
+### Screenshots
+
+**Dashboard** — real-time curve grid with AI scores, fill progress, velocity trends
+
+![Dashboard](docs/screenshots/dashboard.png)
+
+**Token Detail** — AI analysis with reasoning, risk/bullish factors, charts, holder distribution
+
+![Token Detail](docs/screenshots/token-detail.png)
+
 ## Architecture
 
 ```
