@@ -45,23 +45,20 @@ The CurveWhispererOracle contract stores AI-generated graduation scores on-chain
 
 ### Verified Transactions
 
-| Tx Hash | Action | Token | Score | Confidence | Reasoning |
-|---------|--------|-------|-------|------------|-----------|
-| [`0xaa8c4515...`](https://testnet.bscscan.com/tx/0xaa8c4515dd579f684892fc45cc4a06fe6da191eb107484cf5a8fda1016931e92) | Deploy | — | — | — | Contract deployment |
-| [`0x9880c055...`](https://testnet.bscscan.com/tx/0x9880c055176656a2ca7a5daef19c0c7b05069ce6df5372899ab1aa2b5ae69b25) | updateScore | 0x0001 | 75 | high | Strong velocity test |
-| updateScore | | 0x1111 | 82 | high | 142 buyers, accelerating at 4.2 BNB/hr, 87% fill |
-| updateScore | | 0x2222 | 73 | high | Healthy distribution, 89 buyers, HHI < 1500 |
-| updateScore | | 0x3333 | 45 | medium | Decelerating velocity, top holder at 18% |
-| updateScore | | 0x4444 | 22 | low | Stalled 45 min, 19 buyers, top wallet 28% |
-| updateScore | | 0x5555 | 78 | high | Accelerating 3.1 BNB/hr, 53 buyers, HHI 890 |
-| updateScore | | 0x6666 | 58 | medium | 48% fill, stable velocity, needs acceleration |
-| updateScore | | 0x7777 | 31 | low | 9% fill, 8 buyers, early stage |
-| updateScore | | 0x1111 | 88 | high | Score upgraded: velocity surged, 91% fill, graduation imminent |
-| markGraduated | | 0x1111 | — | — | TokenGraduated event emitted |
+| Action | Score | Confidence | Reasoning |
+|--------|-------|------------|-----------|
+| [Deploy](https://testnet.bscscan.com/tx/0xaa8c4515dd579f684892fc45cc4a06fe6da191eb107484cf5a8fda1016931e92) | — | — | Contract deployment |
+| [updateScore](https://testnet.bscscan.com/tx/0x077658706e764e8885f2e79bcd305b10bf248472533e7b83123f2ee5fb309460) | 85 | high | 142 buyers, accelerating at 4.2 BNB/hr, 87% fill |
+| [updateScore](https://testnet.bscscan.com/tx/0x55935e99a1b5d973ec68337ef2b2d3fcf3ba1d41623754e23668b60a1edc1f33) | 73 | high | Healthy distribution, 89 buyers, HHI < 1500 |
+| [updateScore](https://testnet.bscscan.com/tx/0x2b4ece2a6c24b5b9d86c68e35d07a8af6ed79a5783bf36b1a8f25c187d649103) | 45 | medium | Decelerating velocity, top holder at 18% |
+| [updateScore](https://testnet.bscscan.com/tx/0x97a089f74354b852ae453a5575b98c8c09d9cba793dc6750e333df2df2a613e2) | 22 | low | Stalled 45 min, 19 buyers, top wallet 28% |
+| [updateScore](https://testnet.bscscan.com/tx/0xbe8bded36e913ae661f99b1c9f071c3788df7ac6c794057910bf509d0c0bf968) | 78 | high | Accelerating 3.1 BNB/hr, 53 buyers, HHI 890 |
+| [updateScore](https://testnet.bscscan.com/tx/0x977f1e1dbb0a69b73bd1acbb2a5d7906b25c8d7e2a31a17ae895ae8253ebaee6) | 58 | medium | 48% fill, stable velocity, needs acceleration |
+| [updateScore](https://testnet.bscscan.com/tx/0x7d32b8546605a5a81f989ed847cd999b93ad4811be31f308d0431134e991ecc5) | 31 | low | 9% fill, 8 buyers, early stage |
+| [updateScore](https://testnet.bscscan.com/tx/0x4e81aaf25989f90a2673ae5018d57ce084e23d0730523cb34facca6ee3fce530) | 92 | high | Score upgraded: velocity surged, 91% fill, graduation imminent |
+| [markGraduated](https://testnet.bscscan.com/tx/0x5edd1a2afd88193ce7f412af456d30e7279b4d07aa69ed441bc136fb4b68984d) | — | — | TokenGraduated event emitted |
 
-**10 transactions** total — 1 deploy, 9 updateScore calls (including 1 score update showing history), 1 markGraduated event.
-
-Token `0x1111` demonstrates the full lifecycle: initial score (82) -> score update (88) -> graduation.
+10 transactions demonstrating the full oracle lifecycle: score -> update -> graduation.
 
 ### Reading Scores
 
