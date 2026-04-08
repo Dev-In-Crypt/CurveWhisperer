@@ -10,8 +10,7 @@
     "test": "echo \"no tests yet\""
   },
   "dependencies": {
-    "grammy": "^1.21.0",
-    "@cw/backend": "*"
+    "grammy": "^1.21.0"
   },
   "devDependencies": {
     "tsx": "^4.7.0",
