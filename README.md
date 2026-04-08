@@ -13,10 +13,15 @@ Real-time AI advisor that analyzes Four.Meme bonding curves, predicts graduation
 
 ## Live Demo
 
-- **Dashboard:** [cwfrontend-production.up.railway.app](https://cwfrontend-production.up.railway.app)
-- **Backend API:** [cwbackend-production.up.railway.app/api/stats](https://cwbackend-production.up.railway.app/api/stats)
-- **Telegram Bot:** [@CurveWhisperer_bot](https://t.me/CurveWhisperer_bot)
-- **Oracle Contract:** [0x02d42A47cD33F3FEEfC7Cf31b8E29657ed825aB8](https://testnet.bscscan.com/address/0x02d42A47cD33F3FEEfC7Cf31b8E29657ed825aB8) (BSC Testnet)
+- **Demo Video:** [youtu.be/XaUvYrxc6Fo](https://youtu.be/XaUvYrxc6Fo)
+- **Telegram Bot Demo:** [youtu.be/LdCL9XUv8WU](https://youtu.be/LdCL9XUv8WU)
+
+| Component | Link |
+|-----------|------|
+| Dashboard | [cwfrontend-production.up.railway.app](https://cwfrontend-production.up.railway.app) |
+| Backend API | [cwbackend-production.up.railway.app/api/stats](https://cwbackend-production.up.railway.app/api/stats) |
+| Telegram Bot | [@CurveWhisperer_bot](https://t.me/CurveWhisperer_bot) |
+| Oracle Contract | [0x02d42A47...ed825aB8](https://testnet.bscscan.com/address/0x02d42A47cD33F3FEEfC7Cf31b8E29657ed825aB8) (BSC Testnet) |
 
 ## Architecture
 
